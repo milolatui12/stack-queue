@@ -1,3 +1,4 @@
+/////////////////STACK///////////////////////
 class AStack {
     constructor() {
       this.data = new DoublyLinkedList();
@@ -17,7 +18,9 @@ class AStack {
         return this.data.deleteAtTail()
     }
 }
+/////////////////STACK///////////////////////
 
+/////////////////QUEUE///////////////////////
 class AQueue {
     constructor() {
       this.data = new DoublyLinkedList();
@@ -41,7 +44,50 @@ class AQueue {
         this.data.loop();
     }
 }
+/////////////////QUEUE///////////////////////
 
+/////////////////TREE////////////////////////
+function biTreeNode(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+}
+
+function biTree() {
+    this._root = null;
+}
+
+biTree.prototype.insert = function(data) {
+    let currentRoot; 
+    if(!this._root) {
+        this._root = new biTreeNode(data);
+    } else {
+        currentRoot = this._root;
+        while(currentRoot){
+            if(data < currentRoot.data) {
+                if (!currentRoot.left) {
+                    currentRoot.left = new biTreeNode(data);
+                    break;
+                } else {
+                    currentRoot = currentRoot.left;
+                }
+            } else if(data > currentRoot.data) {
+                if(!currentRoot.right) {
+                    currentRoot.right = new biTreeNode(data);
+                    break;
+                } else {
+                    currentRoot = currentRoot.right;
+                }
+            } else {
+                console.log(data + " illegal. Remove " + data + " from array");
+                break;
+            }
+        }
+    }
+}
+/////////////////TREE////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////
 function DoublyLinkedListNode(data) {
     this.data = data;
     this.next = null;
@@ -106,7 +152,7 @@ DoublyLinkedList.prototype.loop  = function() {
     outputArr.push(currentHead.data);
 }
 
-
+/////////////////////////////////////////////////////////////////////
 
 
 let input = document.getElementById('input');
@@ -117,20 +163,23 @@ let printBtn = document.getElementById('printbtn');
 let output = document.getElementById('output');
 let outStack = document.getElementById('stack');
 let pStack = document.getElementById('pstack');
+let inputTree = document.getElementById('inputtree');
+let treeBtn = document.getElementById('treebtn');
+let treeOutput = document.getElementById('treeoutput');
 let p = document.getElementById('p');
 let outputArr = [];
 let queue = new AQueue();
 let stack = new AStack();
+let tree = new biTree();
 
 function print(root, data) {
-    p.innerHTML = "";
     p.appendChild(document.createTextNode(data));
     root.appendChild(p);
     outputArr = [];
 }
 
 
-stack.push('E');
+{stack.push('E');
 stack.push('A');
 stack.push('S');
 outputArr.push(stack.pop());
@@ -153,8 +202,8 @@ stack.push('I');
 outputArr.push(stack.pop());
 stack.push('O');
 stack.push('N');
+print(outStack, outputArr);}
 
-print(outStack, outputArr);
 
 submitBtn.addEventListener("click", function() {
     queue.enqueue(input.value);
@@ -174,6 +223,53 @@ delBtn.addEventListener("click", function() {
     }
 })
 printBtn.addEventListener("click", function() {
+    p.innerHTML = "";
     queue.loop();
     print(output, outputArr);
 })
+treeBtn.addEventListener("click", function() {
+    tree.insert(Number(inputTree.value));
+    inputTree.value = '';
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
